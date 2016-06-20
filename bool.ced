@@ -7,3 +7,7 @@
 '/util':behavior(eq(A,B,T)::expr(bool),!'evaluates to true if both A and B evaluate to the same thing', (eval(eq(op(const(1),'/Functional':numPlus,const(2)),const(3),'/bootstrap':number),_,bool,True),'/util':assertEqual(True,true,bool))).
 '/util':behavior(eq(A,B,T)::expr(bool),!'evaluates to false if A and B evaluate to different things',eval(eq(op(const(1),'/Functional':numPlus,const(2)),const(4),'/bootstrap':number),_,bool,false)).
 annotation:shrink((eval(eq(A,B,T),Sigma,bool,Res):-eval(A,Sigma,T,APrime),eval(B,Sigma,T,BPrime),builtin:if(APrime::T=BPrime::T,Res::bool=true::bool,Res::bool=false::bool))).
+'/bootstrap':signature(not(X)::expr(bool),[X::expr(bool)]).
+'/util':behavior(not(X)::expr(bool),!'evaluates to true if X evaluates to false', (eval(not(const(false)),_,bool,True),'/util':assertEqual(True,true,bool))).
+'/util':behavior(not(X)::expr(bool),!'evaluates to false if X evaluates to true', (eval(not(const(true)),_,bool,False),'/util':assertEqual(False,false,bool))).
+eval(not(Expr),Sigma,bool,Val):-builtin:if(eval(Expr,Sigma,bool,true),Val::bool=false::bool,Val::bool=true::bool).
