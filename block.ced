@@ -1,7 +1,10 @@
 '/bootstrap':signature(block(List)::command,[List::'/bootstrap':list(command)]).
-'/bootstrap':projection(block(List)::command,'/bootstrap':horiz(['/bootstrap':brackets(cpi:vis(List::'/bootstrap':list(command),'/bootstrap':vert),124,0)])).
+'/bootstrap':defAtom(justShowFirst::'/bootstrap':mode).
+'/bootstrap':projection([First|_]::'/bootstrap':list(T),justShowFirst,'/bootstrap':vert(['/bootstrap':horiz(['/bootstrap':symbol(8729),'/bootstrap':vis(First::T)]),'/bootstrap':label(!'...')])).
+'/bootstrap':projection(block(List)::command,'/bootstrap':expand(cpi:vis(List::'/bootstrap':list(command),justShowFirst),cpi:vis(List::'/bootstrap':list(command),'/bootstrap':vert))).
 '/bootstrap':alias(block(List)::command,!'{}').
 '/util':behavior(block(List)::command,!'executes nothing, if the list is empty', (initialState(Sigma1),exec(block([]),Sigma1,Sigma2,InIn,InOut,OutIn,OutOut),'/util':assertEqual(Sigma2,Sigma1,state),'/util':assertEqual(InOut,InIn,'/bootstrap':list('/bootstrap':typedTerm)),'/util':assertEqual(OutOut,OutIn,'/bootstrap':list('/bootstrap':typedTerm)))).
 '/util':behavior(block(List)::command,!'executes commands in order', (initialState(Sigma1),exec(block([assign(A,const(1),'/bootstrap':number),print(var(A),'/bootstrap':number),print(const(!hello),'/bootstrap':string)]),Sigma1,Sigma2,[],[],[],Out),'/util':assertEqual(Out,[1::'/bootstrap':number,!hello::'/bootstrap':string],'/bootstrap':list('/bootstrap':typedTerm)))).
+'/util':behavior(block(List)::command,!'reads things in order', (initialState(Sigma1),exec(block([read(A,'/bootstrap':string),read(B,'/bootstrap':number)]),Sigma1,Sigma2,[!a::'/bootstrap':string,2::'/bootstrap':number],[],[],Out))).
 exec(block([]),Sigma,Sigma,In,In,Out,Out):-builtin:true.
 exec(block([First|Rest]),Sigma1,Sigma3,In1,In3,Out1,Out3):-exec(First,Sigma1,Sigma2,In1,In2,Out2,Out3),exec(block(Rest),Sigma2,Sigma3,In2,In3,Out1,Out2).
