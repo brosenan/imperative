@@ -1,0 +1,18 @@
+'/bootstrap':signature(expr(T)::'/bootstrap':type,[T::'/bootstrap':type]).
+'/bootstrap':signature(const(C)::expr(T),[C::T]).
+'/bootstrap':projection(const(C)::expr(T),'/bootstrap':lineBorder('/bootstrap':vis(C::T),1,cpi:rgb(128,128,128))).
+'/bootstrap':adapter(C::T,const(C)::expr(T)).
+'/bootstrap':signature(eval(Expr,Sigma,T,Value)::'/bootstrap':pred,[Expr::expr(T),Sigma::state,T::'/bootstrap':type,Value::T]).
+'/bootstrap':projection(eval(Expr,Sigma,T,Value)::'/bootstrap':pred,'/bootstrap':horiz(['/bootstrap':brackets('/bootstrap':vis(Expr::expr(T)),40,41),'/bootstrap':halfSize('/bootstrap':vis(Sigma::state)),'/bootstrap':label(! (=)),'/bootstrap':vis(Value::T),'/bootstrap':label(! (::)),'/bootstrap':vis(T::'/bootstrap':type)],cpi:bottom)).
+'/util':behavior(const(C)::expr(T),!'should evaluate to C', (eval(const(C),_,T,CPrime),'/util':assertEqual(CPrime,C,T))).
+eval(const(X),_,_,X):-builtin:true.
+'/bootstrap':signature(op(A,Op,B)::expr(T),[A::expr(T),Op::'/Functional':binOp(T),B::expr(T)]).
+'/bootstrap':projection(op(A,Op,B)::expr(T),'/bootstrap':horiz(['/bootstrap':vis(A::expr(T)),'/bootstrap':vis(Op::'/Functional':binOp(T)),'/bootstrap':vis(B::expr(T))])).
+'/bootstrap':adapter(Op::'/Functional':binOp(T),op(A,Op,B)::expr(T)).
+'/util':behavior(op(A,Op,B)::expr(T),!'evaluates to the application of Op to A and B', (eval(op(const(3),'/Functional':numPlus,const(4)),_,'/bootstrap':number,Seven),'/util':assertEqual(Seven,7,'/bootstrap':number))).
+eval(op(A,Op,B),Sigma,T,V):-eval(A,Sigma,T,APrime),eval(B,Sigma,T,BPrime),'/Functional':eval('/Functional':applyBinOp('/Functional':const(APrime),Op,'/Functional':const(BPrime)),T,V).
+'/bootstrap':signature(var(Var)::expr(T),[Var::variable(T)]).
+'/bootstrap':projection(var(Var)::expr(T),'/bootstrap':lineBorder('/bootstrap':vis(Var::variable(T)),1,cpi:rgb(128,128,255))).
+'/bootstrap':adapter(Var::variable(T),var(Var)::expr(T)).
+'/util':behavior(var(Var)::expr(T),!'evaluates to the value of Var in the state', (initialState(Sigma1),changeState(Sigma1,foo,3,'/bootstrap':number,Sigma2),eval(var(foo),Sigma2,'/bootstrap':number,Three),'/util':assertEqual(Three,3,'/bootstrap':number))).
+eval(var(Var),Sigma,Type,Value):-getState(Sigma,Var,Value,Type).

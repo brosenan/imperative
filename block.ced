@@ -1,0 +1,4 @@
+'/bootstrap':signature(block(List)::command,[List::'/bootstrap':list(command)]).
+'/bootstrap':projection(block(List)::command,'/bootstrap':horiz(['/bootstrap':box(1),cpi:vis(List::'/bootstrap':list(command),'/bootstrap':vert)])).
+'/bootstrap':alias(block(List)::command,!'{}').
+'/bootstrap':disabled('/util':behavior(block(List)::command,!'executes commands in order',exec(block([_]),_,_,[],[],[],[]))).

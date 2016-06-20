@@ -1,0 +1,4 @@
+'/bootstrap':signature(print(Expr,Type)::command,[Expr::expr(Type),Type::'/bootstrap':type]).
+'/bootstrap':projection(print(Expr,Type)::command,'/bootstrap':horiz(['/bootstrap':label(!print),'/bootstrap':vis(Expr::expr(Type)),'/bootstrap':label(! (::)),'/bootstrap':vis(Type::'/bootstrap':type)])).
+'/util':behavior(print(Expr,Type)::command,!'adds the value of Expr to the output', (initialState(Sigma),exec(print(const(5),'/bootstrap':number),Sigma,SigmaPrime,[],InOut,[!hello::'/bootstrap':string],OutOut),'/util':assertEqual(OutOut,[5::'/bootstrap':number,!hello::'/bootstrap':string],'/bootstrap':list('/bootstrap':typedTerm)))).
+exec(print(Expr,Type),Sigma,Sigma,In,In,OutIn,[Value::Type|OutIn]):-eval(Expr,Sigma,Type,Value).

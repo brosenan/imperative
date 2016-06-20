@@ -1,0 +1,9 @@
+'/bootstrap':defAtom(bool::'/bootstrap':type).
+'/bootstrap':defAtom(true::bool).
+'/bootstrap':defAtom(false::bool).
+'/bootstrap':signature(eq(A,B,T)::expr(bool),[A::expr(T),B::expr(T),T::'/bootstrap':type]).
+'/bootstrap':projection(eq(A,B,T)::expr(bool),'/bootstrap':horiz(['/bootstrap':vis(A::expr(T)),'/bootstrap':halfSize('/bootstrap':horiz(['/bootstrap':label(! (::)),'/bootstrap':vis(T::'/bootstrap':type)])),'/bootstrap':label(! (==)),'/bootstrap':vis(B::expr(T))])).
+'/bootstrap':alias(eq(A,B,T)::expr(bool),! (==)).
+'/util':behavior(eq(A,B,T)::expr(bool),!'evaluates to true if both A and B evaluate to the same thing', (eval(eq(op(const(1),'/Functional':numPlus,const(2)),const(3),'/bootstrap':number),_,bool,True),'/util':assertEqual(True,true,bool))).
+'/util':behavior(eq(A,B,T)::expr(bool),!'evaluates to false if A and B evaluate to different things',eval(eq(op(const(1),'/Functional':numPlus,const(2)),const(4),'/bootstrap':number),_,bool,false)).
+annotation:shrink((eval(eq(A,B,T),Sigma,bool,Res):-eval(A,Sigma,T,APrime),eval(B,Sigma,T,BPrime),builtin:if(APrime::T=BPrime::T,Res::bool=true::bool,Res::bool=false::bool))).

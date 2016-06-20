@@ -1,0 +1,19 @@
+'/bootstrap':defAtom(state::'/bootstrap':type).
+'/bootstrap':signature(variable(Type)::'/bootstrap':type,[Type::'/bootstrap':type]).
+'/bootstrap':signature(initialState(Sigma)::'/bootstrap':pred,[Sigma::state]).
+'/util':behavior(initialState(Sigma)::'/bootstrap':pred,!'assigns Sigma an empty state',initialState(Sigma)).
+'/bootstrap':defAtom(stateElem::'/bootstrap':type).
+'/bootstrap':signature(state(State)::state,[State::'/bootstrap':list(stateElem)]).
+initialState(state([])):-builtin:true.
+'/bootstrap':varNameMacroStatement(!'Sigma','/bootstrap':symbol(963)).
+'/bootstrap':sigProj(changeState(Sigma1,Key,Value,Type,Sigma2)::'/bootstrap':pred,[Sigma1::state,Key::variable(Type),Value::Type,Type::'/bootstrap':type,Sigma2::state],'/bootstrap':horiz(['/bootstrap':vis(Sigma1::state),'/bootstrap':brackets('/bootstrap':horiz(['/bootstrap':vis(Key::variable(Type)),'/bootstrap':label(! (/)),'/bootstrap':vis(Value::Type),'/bootstrap':label(! (::)),'/bootstrap':vis(Type::'/bootstrap':type)]),91,93),'/bootstrap':label(! (=)),'/bootstrap':vis(Sigma2::state)])).
+'/util':behavior(changeState(Sigma1,Key,Value,Type,Sigma2)::'/bootstrap':pred,!'creates a new state in which Key corresponds to Value', (initialState(Sigma1),changeState(Sigma1,Foo,3,'/bootstrap':number,Sigma2))).
+'/util':behavior(changeState(Sigma1,Key,Value,Type,Sigma2)::'/bootstrap':pred,!'updates an existing value', (initialState(Sigma1),changeState(Sigma1,Foo,3,'/bootstrap':number,Sigma2),changeState(Sigma2,Foo,5,'/bootstrap':number,Sigma3),\+getState(Sigma3,Foo,3,'/bootstrap':number))).
+'/util':behavior(changeState(Sigma1,Key,Value,Type,Sigma2)::'/bootstrap':pred,!'maps different values to different variables', (initialState(Sigma1),changeState(Sigma1,Foo,3,'/bootstrap':number,Sigma2),changeState(Sigma2,Baz,5,'/bootstrap':number,Sigma3),\+getState(Sigma3,Foo,5,'/bootstrap':number))).
+'/bootstrap':signature(stateElem(Key,Value,Type)::stateElem,[Key::variable(Type),Value::Type,Type::'/bootstrap':type]).
+annotation:shrink((changeState(state([stateElem(KeyPrime,ValuePrime,TypePrime)|Sigma]),Key,Value,Type,state(Sigma1)):-builtin:if(builtin:equals(KeyPrime::variable(TypePrime),Key::variable(Type)),Sigma1::'/bootstrap':list(stateElem)=[stateElem(Key,Value,Type)|Sigma]::'/bootstrap':list(stateElem), (changeState(state(Sigma),Key,Value,Type,state(Sigma1Prime)),Sigma1::'/bootstrap':list(stateElem)=[stateElem(KeyPrime,ValuePrime,TypePrime)|Sigma1Prime]::'/bootstrap':list(stateElem))))).
+changeState(state([]),Key,Value,Type,state([stateElem(Key,Value,Type)])):-builtin:true.
+'/bootstrap':signature(getState(Sigma,Key,Value,Type)::'/bootstrap':pred,[Sigma::state,Key::variable(Type),Value::Type,Type::'/bootstrap':type]).
+'/bootstrap':projection(getState(Sigma,Key,Value,Type)::'/bootstrap':pred,'/bootstrap':horiz(['/bootstrap':vis(Sigma::state),'/bootstrap':brackets('/bootstrap':vis(Key::variable(Type)),91,93),'/bootstrap':label(! (=)),'/bootstrap':vis(Value::Type),'/bootstrap':label(! (::)),'/bootstrap':vis(Type::'/bootstrap':type)])).
+'/util':behavior(getState(Sigma,Key,Value,Type)::'/bootstrap':pred,!'Unifies Variable with the value of Key in Sigma', (initialState(Sigma1),changeState(Sigma1,Foo,3,'/bootstrap':number,Sigma2),getState(Sigma2,Foo,Three,'/bootstrap':number),'/util':assertEqual(Three,3,'/bootstrap':number))).
+annotation:shrink((getState(state([stateElem(KeyPrime,ValuePrime,TypePrime)|Sigma]),Key,Value,Type):-builtin:if(builtin:equals(KeyPrime::variable(TypePrime),Key::variable(Type)),Value::Type=ValuePrime::TypePrime,getState(state(Sigma),Key,Value,Type)))).
