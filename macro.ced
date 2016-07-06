@@ -1,7 +1,7 @@
-'/bootstrap':signature(procedure(Proc,Body)::'/bootstrap':statement,[Proc::command,Body::command]).
-'/bootstrap':projection(procedure(Proc,Body)::'/bootstrap':statement,'/bootstrap':horiz(['/bootstrap':label(!proc),'/bootstrap':vis(Proc::command),'/bootstrap':label(!':='),'/bootstrap':vis(Body::command)])).
-procedure(Proc,Body)~>exec(Proc,Sigma1,Sigma2,In1,In2,Out1,Out2):-exec(Body,Sigma1,Sigma2,In1,In2,Out1,Out2).
+'/bootstrap':signature(macro(Macro,Body)::'/bootstrap':statement,[Macro::command,Body::command]).
+'/bootstrap':projection(macro(Macro,Body)::'/bootstrap':statement,'/bootstrap':horiz(['/bootstrap':label(!macro),'/bootstrap':vis(Macro::command),'/bootstrap':label(!':='),'/bootstrap':vis(Body::command)])).
+macro(Macro,Body)~>exec(Macro,Sigma1,Sigma2,In1,In2,Out1,Out2):-exec(Body,Sigma1,Sigma2,In1,In2,Out1,Out2).
 '/bootstrap':signature(while(Cond,Body)::command,[Cond::expr(bool),Body::command]).
 '/bootstrap':projection(while(Cond,Body)::command,'/bootstrap':vert(['/bootstrap':horiz(['/bootstrap':label(!while),'/bootstrap':vis(Cond::expr(bool)),'/bootstrap':label(! (:))]),'/bootstrap':horiz(['/bootstrap':label(!'    '),'/bootstrap':vis(Body::command)])])).
 '/util':behavior(while(Cond,Body)::command,!'executes Body while Cond holds', (execute(block([assign(I,const(1),'/bootstrap':number),assign(S,const(0),'/bootstrap':number),while(not(eq(var(I),const(10),'/bootstrap':number)),block([assign(S,op(var(S),'/Functional':numPlus,var(I)),'/bootstrap':number),assign(I,op(var(I),'/Functional':numPlus,const(1)),'/bootstrap':number)])),print(var(S),'/bootstrap':number)]),[],Out),'/util':assertEqual(Out,[45::'/bootstrap':number],'/bootstrap':list('/bootstrap':typedTerm)))).
-procedure(while(Cond,Body),if(Cond,block([Body,while(Cond,Body)]))).
+macro(while(Cond,Body),if(Cond,block([Body,while(Cond,Body)]))).
