@@ -1,4 +1,4 @@
 '/bootstrap':signature(read(Var,Type)::command,[Var::variable(Type),Type::'/bootstrap':type]).
-'/bootstrap':projection(read(Var,Type)::command,'/bootstrap':horiz(['/bootstrap':label(!'read into'),'/bootstrap':vis(Var::variable(Type)),'/bootstrap':label(! (::)),'/bootstrap':vis(Type::'/bootstrap':type)])).
+'/bootstrap':projection(read(Var,Type)::command,'/bootstrap':horiz(['/bootstrap':label(!input),'/bootstrap':vis(Var::variable(Type)),'/bootstrap':label(! (::)),'/bootstrap':vis(Type::'/bootstrap':type)])).
 '/util':behavior(read(Var,Type)::command,!'reads a value from the input stream and assigns it to Var', (initialState(Sigma1),exec(read(X,'/bootstrap':number),Sigma1,Sigma2,[3::'/bootstrap':number],InOut,OutIn,OutOut),getState(Sigma2,X,Three,'/bootstrap':number),'/util':assertEqual(Three,3,'/bootstrap':number))).
 exec(read(Var,Type),Sigma1,Sigma2,[Val::Type|In],In,Out,Out):-changeState(Sigma1,Var,Val,Type,Sigma2).
