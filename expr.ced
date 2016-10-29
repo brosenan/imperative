@@ -1,7 +1,8 @@
 '/bootstrap':signature(expr(T)::'/bootstrap':type,[T::'/bootstrap':type]).
 '/bootstrap':signature(const(C)::expr(T),[C::T]).
 '/bootstrap':projection(const(C)::expr(T),'/bootstrap':lineBorder('/bootstrap':vis(C::T),1,cpi:rgb(128,128,128))).
-'/bootstrap':adapter(C::T,const(C)::expr(T)).
+'/bootstrap':disabled('/bootstrap':adapter(C::T,const(C)::expr(T))).
+'/bootstrap':checkAdapter(C::T,const(C)::expr(T)):- \+T::'/bootstrap':type=variable(_)::'/bootstrap':type.
 '/bootstrap':signature(eval(Expr,Sigma,T,Value)::'/bootstrap':pred,[Expr::expr(T),Sigma::state,T::'/bootstrap':type,Value::T]).
 '/bootstrap':projection(eval(Expr,Sigma,T,Value)::'/bootstrap':pred,'/bootstrap':horiz(['/bootstrap':brackets('/bootstrap':vis(Expr::expr(T)),40,41),'/bootstrap':halfSize('/bootstrap':vis(Sigma::state)),'/bootstrap':label(! (=)),'/bootstrap':vis(Value::T),'/bootstrap':label(! (::)),'/bootstrap':vis(T::'/bootstrap':type)],cpi:bottom)).
 '/util':behavior(const(C)::expr(T),!'should evaluate to C', (eval(const(C),_,T,CPrime),'/util':assertEqual(CPrime,C,T))).

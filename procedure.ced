@@ -16,8 +16,10 @@ procedure(Name,Args,Body)~>isProc(Name,Args,Body):-builtin:true.
 '/bootstrap':signature(typedExpr(Expr,T)::typedExpr,[Expr::expr(T),T::'/bootstrap':type]).
 '/bootstrap':projection(typedExpr(Expr,T)::typedExpr,'/bootstrap':horiz(['/bootstrap':vis(Expr::expr(T)),'/bootstrap':halfSize('/bootstrap':horiz(['/bootstrap':label(! (::)),'/bootstrap':vis(T::'/bootstrap':type)]))])).
 '/bootstrap':alias(typedExpr(Expr,T)::typedExpr,! (::)).
+'/bootstrap':adapter(Val::T,typedExpr(const(Val),T)::typedExpr).
 '/util':behavior(call(ProcName,Args)::command,!'should call a procedure', (execute(call(fooProc,[typedExpr(const(2),'/bootstrap':number),typedExpr(const(!foo),'/bootstrap':string)]),[],Output),'/util':assertEqual(Output,[!foo::'/bootstrap':string,!foo::'/bootstrap':string],'/bootstrap':list('/bootstrap':typedTerm)))).
 '/bootstrap':signature(assignArgs(Args,FormalArgs,Sigma,SigmaPrime)::'/bootstrap':pred,[Args::'/bootstrap':list(typedExpr),FormalArgs::'/bootstrap':list(typedVar),Sigma::state,SigmaPrime::state]).
 assignArgs([],[],Sigma,Sigma):-builtin:true.
 annotation:shrink((assignArgs([typedExpr(Arg,T)|Args],[typedVar(FormalArg,T)|FormalArgs],Sigma,SigmaPrimePrime):-eval(Arg,Sigmal,T,ArgVal),changeState(Sigma,FormalArg,ArgVal,T,SigmaPrime),assignArgs(Args,FormalArgs,SigmaPrime,SigmaPrimePrime))).
 exec(call(ProcName,Args),Sigma,Sigma,In,InPrime,Out,OutPrime):-isProc(ProcName,FormalArgs,Body),assignArgs(Args,FormalArgs,Sigma,SigmaPrime),exec(Body,SigmaPrime,_,In,InPrime,Out,OutPrime).
+procedure(Name,_,_)~>'/bootstrap':defAtom(Name::procName).
